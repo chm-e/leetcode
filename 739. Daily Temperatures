@@ -1,0 +1,29 @@
+# Problem: https://leetcode.com/problems/daily-temperatures
+
+class Solution:
+    def dailyTemperatures_1(self, temperatures: List[int]) -> List[int]:
+        result = [0]*len(temperatures)
+        stack = []
+        
+        for i, cur in enumerate(temperatures):
+            while stack and cur > temperatures[stack[-1]]:
+                result[stack.pop()] = i-stack[-1]
+            stack.append(i)
+            
+        return result
+        
+        
+    def dailyTemperatures_2(self, temperatures: List[int]) -> List[int]:
+        n, r_max = len(temperatures), float('-inf')
+        result = [0]*n
+        
+        for i in range(n-1, -1, -1):
+            cur = temperatures[i]
+            if r_max <= cur:
+                r_max = cur
+            else:
+                days=1
+                while temperatures[i+days] <= cur:
+                    days+= result[i+days]
+                result[i]=days
+        return result
