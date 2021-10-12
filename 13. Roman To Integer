@@ -1,0 +1,34 @@
+# Problem: https://leetcode.com/problems/roman-to-integer
+
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        s_dict = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+        temp = []
+        result = 0
+        for ROMAN in s:
+            temp.append(s_dict[ROMAN])
+        for i in range(len(temp)-1):
+            if temp[i] < temp[i+1]:
+                result-=temp[i]
+            else:
+                result+=temp[i]
+        return result+temp[-1]
+        
+class Solution_2:
+    def romanToInt(self, s: str) -> int:
+        translations = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+        number = 0
+        s = s.replace("IV", "IIII").replace("IX", "VIIII")
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+        for char in s:
+            number += translations[char]
+        return number
