@@ -1,0 +1,37 @@
+# Problem: https://leetcode.com/problems/top-k-frequent-elements
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        buckets = [[] for _ in range(len(nums)+1)]
+        freq_dict = collections.defaultdict(int)
+        
+        for num in nums:
+            freq_dict[num] +=1
+            
+        result = []
+        
+        for num, freq in freq_dict.items():
+            buckets[freq].append(num)
+            
+        for i in range(len(buckets)-1, -1, -1):
+            bucket = buckets[i]
+            
+            if bucket:
+                for i in bucket:
+                    result.append(i)
+            
+        return result[:k]
+        
+        
+class Solution_heap: 
+  def topKFrequent_heap(self, nums: List[int], k:int) -> List[int]:
+      freqs = collections.Counter(nums)
+      freqs_heap = []
+      
+      for f in freqs:
+          heapq.heappush(freqs_heap, (-freqs[f], f))
+      
+      topk = []
+      for _ in range(k):
+          topk.append(heapq.heappop(freqs_heap)[1])
+          
+      return topk
