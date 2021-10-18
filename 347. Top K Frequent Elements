@@ -35,3 +35,7 @@ class Solution_heap:
           topk.append(heapq.heappop(freqs_heap)[1])
           
       return topk
+
+class Solution_python:
+  def topKFrequent_python(self, nums: List[int], k:int) -> List[int]:
+      return list(zip(*collections.Counter(nums).most_common(k)))[0]
