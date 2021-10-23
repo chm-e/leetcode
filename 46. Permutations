@@ -1,0 +1,26 @@
+class Solution():
+  def permute(self, nums: List[int]) -> List[List[int]]:
+    result = []
+    prev = []
+    
+    def dfs(ee):
+      if len(ee) == 0:
+        result.append(prev)
+        
+      for e in ee:
+        next_ee = deepcopy(ee)
+        next_ee.remove(e)
+        
+        prev.append(e)
+        dfs(next_ee)
+        prev.pop()
+   
+   dfs(nums)
+   
+   reutnr result
+   
+   
+   
+class SolutionPython():
+  def permute(self, nums:List[int]) -> List[List[int]]:
+    return list(map(list, itertools.permutations(nums)))
