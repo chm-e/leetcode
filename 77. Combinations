@@ -1,0 +1,28 @@
+class Solution:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        result = []
+        
+        def dfs(ee, start, k):
+            if k==0:
+                result.append(deepcopy(ee))
+                return
+            
+            for i in range(start, n+1):
+                ee.append(i)
+                dfs(ee, i+1, k-1)
+                ee.pop()
+        dfs([], 1, k)
+        
+        return result  # runtime: 594ms
+        
+        
+class SolutionFast:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        if k==0:
+            return [[]]
+        return [pre + [i] for i in range(k, n+1) for pre in self.combine(i-1, k-1)] # runtime: 124ms
+        
+        
+class SolutionPython:
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        return list(itertools.combinations(Range(1,n+1), k)). # runtime: 90ms
