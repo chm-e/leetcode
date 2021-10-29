@@ -1,6 +1,6 @@
 # problem: https://leetcode.com/problems/reconstruct-itinerary
 
-class Solution:
+class Solution1:
     def findItinerary(self, tickets: List[List[str]]) -> List[str]:
         graph = collections.defaultdict(list)
         result = []
@@ -14,3 +14,24 @@ class Solution:
         dfs('JFK')
         
         return result[::-1]
+
+
+class Solution2:
+    '''
+    pop() has O(1) and pop(0) has O(n) time complexcity
+    Solution2 is faster than Solution1 when tickets has many items
+    '''
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        graph = collections.defaultdict(list)
+        result = []
+        for a, b in sorted(tickets, reverse=True):
+            graph[a].append(b)
+            
+        def dfs(a):
+            while graph[a]:
+                dfs(graph[a].pop())
+            result.append(a)
+        dfs('JFK')
+        
+        return result[::-1]
+            
