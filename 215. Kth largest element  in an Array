@@ -8,3 +8,11 @@ class Solution:
             heapq.heappop(heap)
             
         return -heapq.heappop(heap)
+
+class Solution2:
+    def findKthLarget_headq(self, nums: List[int], k: int) -> int:
+        return heapq.largest(k, nums)[-1]
+        
+class Solution3:
+    def findKthLarget_sorted(self, nums: List[int], k: int) -> int:
+        return sorted(nums, reverse=True)[k-1]
