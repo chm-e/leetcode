@@ -1,0 +1,12 @@
+def quicksort(A, lo, hi):
+  def partitioning(lo,hi):
+    pivot = A[hi]
+    left = lo
+    for right in range(lo, hi):
+      if A[right]<pivot:
+        A[left], A[right] = A[right], A[left]
+        left += 1
+ if lo<hi:
+  pivot = partitioning(lo, hi)
+  quicksort(A, lo, pivot-1)
+  quicksort(A, pivot, hi)
